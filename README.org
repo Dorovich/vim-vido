@@ -1,0 +1,8 @@
+* Cositas de Vim
+** Instalación remota
+#+BEGIN_SRC shell
+mkdir -p ~/.vim
+git clone --recurse-submodules --remote-submodules -j8 https://github.com/Dorovich/vim-vido ~/.vim
+cd ~/.vim
+git submodule update --remote --merge
+#+END_SRC

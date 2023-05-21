@@ -36,7 +36,7 @@ case $1 in
 		;;
 	install)
 		cd $HOME
-		git clone --recurse-submodules --remote-submodules -j8 https://github.com/Dorovich/vim-vido ~/.vim
+		git clone --recurse-submodules --remote-submodules -j8 https://github.com/Dorovich/vim-vido $HOME/.vim
 		cd $HOME/.vim
 		git submodule update --remote --merge
 		;;
