@@ -1,0 +1,43 @@
+#!/bin/env bash
+
+function add-plugin() {
+    git submodule add https://github.com/$1 pack/$2
+}
+
+case $1 in
+	create)
+		mkdir -p $HOME/.vim
+		cd $HOME/.vim
+		git init
+		git remote add origin https://github.com/Dorovich/vim-vido
+		git branch -M main
+		mkdir -p pack/plugins/start
+		mkdir -p pack/plugins/opt
+		mkdir -p pack/colors/opt
+		mkdir -p pack/syntax/opt
+		# plugins (start)
+		add-plugin tpope/vim-surround plugins/start/vim-surround
+		add-plugin tpope/vim-commentary plugins/start/vim-commentary
+		add-plugin jdhao/better-escape.vim plugins/start/better-escape.vim
+		# plugins (opt)
+		add-plugin junegunn/fzf plugins/opt/fzf
+		add-plugin junegunn/fzf.vim plugins/opt/fzf.vim
+		add-plugin tpope/vim-speeddating plugins/opt/vim-speeddating
+		# colors (opt)
+		add-plugin srcery-colors/srcery-vim colors/opt/srcery
+		add-plugin Everblush/everblush.vim colors/opt/everblush
+		add-plugin rose-pine/vim colors/opt/rosepine
+		# syntax (opt)
+		add-plugin jceb/vim-orgmode syntax/opt/orgmode
+		;;
+	update)
+		cd $HOME/.vim
+		git submodule update --remote --merge
+		;;
+	install)
+		cd $HOME
+		git clone --recurse-submodules --remote-submodules -j8 https://github.com/Dorovich/vim-vido ~/.vim
+		cd $HOME/.vim
+		git submodule update --remote --merge
+		;;
+esac
