@@ -4,6 +4,14 @@ function add-plugin() {
     git submodule add https://github.com/$1 pack/$2
 }
 
+function del-plugin() {
+    git submodule deinit pack/$1
+}
+
+function move-plugin() {
+    git mv pack/$1 pack/$2
+}
+
 case $1 in
 	create)
 		mkdir -p $HOME/.vim
@@ -36,7 +44,7 @@ case $1 in
 		;;
 	install)
 		cd $HOME
-		git clone --recurse-submodules --remote-submodules -j8 https://github.com/Dorovich/vim-vido $HOME/.vim
+		git clone --recursive -j8 https://github.com/Dorovich/vim-vido $HOME/.vim
 		cd $HOME/.vim
 		git submodule update --remote --merge
 		;;

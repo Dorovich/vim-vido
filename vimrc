@@ -8,6 +8,9 @@ endif
 " Cambiar en lista los grupos de plugins a cargar (1=activo, 0=inactivo)
 let cargar_plugins = { 'fuzzy': 1, 'colores': 1, 'orgmode': 1 }
 
+" No guardar la vista (pliegues y tal) en los siguientes filetypes:
+let no_guardar_vista = ['org']
+
 " OTROS PLUGINS ÚTILES:
 " YouCompleteMe - motor de compleción
 " vlime - desarollo de common lisp
@@ -34,11 +37,12 @@ set hlsearch incsearch
 set nowrap
 set noswapfile
 set smarttab
+set smartcase
 set autoindent
 set title
 set cursorline
 set scrolloff=1 sidescrolloff=1
-set encoding=utf-8
+set encoding=utf-8 fileencoding=utf-8
 set t_Co=256
 set omnifunc=syntaxcomplete#Complete
 set undofile undodir=~/.vim/tmp/undo
@@ -51,6 +55,10 @@ filetype plugin on
 filetype plugin indent on
 
 let g:better_escape_shortcut = 'jk'
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 0
+let g:netrw_winsize = 25
 
 let g:mapleader = ','
 let g:maplocaleader = ' '
@@ -73,9 +81,6 @@ let &t_EI = "\e[2 q"
 
 autocmd FileType help :nmap <buffer> <silent> q <c-w>q
 
-" No guardar la vista (pliegues y tal) en los siguientes filetypes:
-let no_guardar_vista = ['org']
-
 augroup guardar_pliegues
 	autocmd!
 	au BufWinLeave ?* if index(no_guardar_vista, &ft) < 0 | mkview | endif
@@ -84,8 +89,11 @@ augroup END
 
 " Limpiar la carpeta con archivos temporales:
 function! ClearTemp()
-	call delete($HOME . '/.vim/tmp', 'rf')
+	call delete($HOME.'/.vim/tmp', 'rf')
 endfunction
+
+" Para que C-q y C-s lleguen a vim:
+silent !stty -ixon > /dev/null 2>/dev/null
 
 " Si no los plugins que usan filetype no van:
 runtime! ALL ftdetect/*.vim
@@ -94,6 +102,7 @@ runtime! ALL ftdetect/*.vim
 if cargar_plugins['fuzzy']
 	packadd! fzf
 	packadd! fzf.vim
+	nmap <leader>f :Files<cr>
 endif
 
 if cargar_plugins['colores']
@@ -103,6 +112,7 @@ if cargar_plugins['colores']
 	let g:srcery_bg_passthrough = 1
 	let g:srcery_dim_lisp_paren = 1
 	let g:srcery_italic = 1
+	let g:srcery_hard_black_terminal_bg = 0
 	let g:everblush_transp_bg = 1
 	let g:disable_bg = 1
 	colorscheme srcery
