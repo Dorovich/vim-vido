@@ -28,3 +28,6 @@
 [submodule "pack/syntax/opt/orgmode"]
 	path = pack/syntax/opt/orgmode
 	url = https://github.com/jceb/vim-orgmode
+[submodule "pack/syntax/opt/glsl"]
+	path = pack/syntax/opt/glsl
+	url = https://github.com/tikhomirov/vim-glsl

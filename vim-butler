@@ -6,9 +6,10 @@ function add-plugin() {
 
 function del-plugin() {
     git submodule deinit pack/$1
+    git rm pack/$1
 }
 
-function move-plugin() {
+function mv-plugin() {
     git mv pack/$1 pack/$2
 }
 
@@ -38,14 +39,17 @@ case $1 in
 		# syntax (opt)
 		add-plugin jceb/vim-orgmode syntax/opt/orgmode
 		;;
-	update)
-		cd $HOME/.vim
-		git submodule update --remote --merge
-		;;
 	install)
 		cd $HOME
 		git clone --recursive -j8 https://github.com/Dorovich/vim-vido $HOME/.vim
 		cd $HOME/.vim
 		git submodule update --remote --merge
 		;;
+	update)
+		cd $HOME/.vim
+		git submodule update --remote --merge
+		;;
+	add) 	add-plugin $2 $3;;
+	del) 	del-plugin $2;;
+	mv) 	mv-plugin $2 $3;;
 esac

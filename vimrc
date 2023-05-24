@@ -6,7 +6,7 @@ if !isdirectory($HOME.'/.vim/tmp')
 endif
 
 " Cambiar en lista los grupos de plugins a cargar (1=activo, 0=inactivo)
-let cargar_plugins = { 'fuzzy': 1, 'colores': 1, 'orgmode': 1 }
+let cargar_plugins = { 'fuzzy': 1, 'colores': 1, 'orgmode': 1, 'glsl': 1 }
 
 " No guardar la vista (pliegues y tal) en los siguientes filetypes:
 let no_guardar_vista = ['org']
@@ -88,6 +88,19 @@ augroup guardar_pliegues
 	au BufWinEnter ?* silent! loadview
 augroup END
 
+function! RunFile()
+	if &ft == 'c'
+		execute('!make')
+		" execute('!tcc -run %')
+	elseif &ft == 'lisp'
+		execute('!sbcl --script %')
+	else
+		execute('echo "No runner avaiable!"')
+	endif
+endfunction
+
+nmap <leader>s :call RunFile()<cr>
+
 " Limpiar la carpeta con archivos temporales:
 function! ClearTemp()
 	call delete($HOME.'/.vim/tmp', 'rf')
@@ -95,12 +108,6 @@ endfunction
 
 " Para que C-q y C-s lleguen a vim:
 silent !stty -ixon > /dev/null 2>/dev/null
-
-" function! RunFile()
-" 	let s:ft = &ft
-" 	if s:ft = 'c'
-" 		execute('')
-" endfunction
 
 " Si no los plugins que usan filetype no van:
 runtime! ALL ftdetect/*.vim
@@ -110,6 +117,7 @@ if cargar_plugins['fuzzy']
 	packadd! fzf
 	packadd! fzf.vim
 	nmap <leader>f :Files<cr>
+	nmap <leader>b :Buffers<cr>
 endif
 
 if cargar_plugins['colores']
@@ -131,4 +139,8 @@ if cargar_plugins['orgmode']
 	packadd! vim-speeddating
 	packadd! orgmode
 	silent! helptags ALL
+endif
+
+if cargar_plugins['glsl']
+	packadd! glsl
 endif
