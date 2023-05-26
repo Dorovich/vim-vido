@@ -29,6 +29,7 @@ set ruler
 set number relativenumber
 set splitbelow splitright
 set wildmenu wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.exe,*.o,*.mp3,*.mp4,*.mov,*.mkv,*.ogg,*.dat
+set backspace=indent,eol,start
 set autoread
 set lazyredraw
 set shortmess+=a
@@ -66,6 +67,8 @@ let g:maplocaleader = ' '
 nmap ñ :
 nmap U <c-r>
 nmap Q gq
+nmap Y y$
+nmap <tab> za
 nmap <c-q> :q<cr>
 nmap <c-s> :w<cr>
 nmap <leader>r :%s//g<left><left>
@@ -79,6 +82,7 @@ xmap < <gv
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+command! SudoWrite w !sudo tee %
 
 autocmd FileType help :nmap <buffer> <silent> q <c-w>q
 
@@ -124,6 +128,7 @@ if cargar_plugins['colores']
 	packadd! srcery
 	packadd! everblush
 	packadd! rosepine
+	packadd! css-color
 	let g:srcery_bg_passthrough = 1
 	let g:srcery_dim_lisp_paren = 1
 	let g:srcery_italic = 1

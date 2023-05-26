@@ -2,5 +2,5 @@
 ** Instalación remota
 #+BEGIN_SRC shell
 git clone --recursive -j8 https://github.com/Dorovich/vim-vido ~/.vim
-cd ~/.vim && git submodule update --remote --merge
+cd ~/.vim && ./vim-butler update
 #+END_SRC
