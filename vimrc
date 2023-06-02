@@ -74,6 +74,7 @@ nmap <c-s> :w<cr>
 nmap <leader>r :%s//g<left><left>
 nmap <leader>c :!make<cr>
 nmap <silent> <leader>t :term<cr>
+xmap ñ :
 xmap q <esc>
 xmap > >gv
 xmap < <gv

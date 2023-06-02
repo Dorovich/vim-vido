@@ -20,7 +20,7 @@ case $1 in
 	add) 	add-plugin $2 $3;;
 	del) 	del-plugin $2;;
 	mv) 	mv-plugin $2 $3;;
-	create)
+	start)
 		mkdir -p $HOME/.vim
 		cd $HOME/.vim
 		git init
